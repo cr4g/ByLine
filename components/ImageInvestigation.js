@@ -75,6 +75,7 @@ function CompareCard({ set, onHintRevealed }) {
 export default function ImageInvestigation() {
   const [active, setActive] = useState(0);
   const [revealedSets, setRevealedSets] = useState(new Set());
+  const [done, setDone] = useState(false);
   const { markDone } = useProgress();
 
   function handleHintRevealed(i) {
@@ -82,9 +83,13 @@ export default function ImageInvestigation() {
       if (prev.has(i)) return prev;
       const next = new Set(prev);
       next.add(i);
-      if (next.size === imageSets.length) markDone('images');
       return next;
     });
+  }
+
+  function finish() {
+    markDone('images');
+    setDone(true);
   }
 
   return (
@@ -113,6 +118,18 @@ export default function ImageInvestigation() {
       <Reveal>
         <CompareCard set={imageSets[active]} onHintRevealed={() => handleHintRevealed(active)} />
       </Reveal>
+      <div className="text-center mt-[26px]">
+        <motion.button
+          whileHover={!done ? { y: -2 } : {}}
+          whileTap={!done ? { scale: 0.97 } : {}}
+          className="btn btn-primary"
+          style={done ? { opacity: 0.7, cursor: 'default' } : {}}
+          onClick={finish}
+          disabled={done}
+        >
+          {done ? '✓ Module complete' : "✓ I've compared all three"}
+        </motion.button>
+      </div>
     </section>
   );
 }
