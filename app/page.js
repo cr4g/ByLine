@@ -14,6 +14,8 @@ import ScenarioSimulator from '../components/ScenarioSimulator';
 import Quiz from '../components/Quiz';
 import FinalChallenge from '../components/FinalChallenge';
 import Footer from '../components/Footer';
+import SequentialGate from '../components/SequentialGate';
+import LearningsComplete from '../components/LearningsComplete';
 
 export default function Home() {
   return (
