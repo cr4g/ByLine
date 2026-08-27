@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useProgress } from './ProgressContext';
 
 export default function LearningsComplete() {
-  const { doneCount, modules, markLearningsComplete } = useProgress();
+  const { modules, markLearningsComplete } = useProgress();
   
   const learningModules = ['lab', 'detective', 'clickbait', 'images', 'scenarios'];
   const completedCount = learningModules.filter(k => modules[k]).length;
