@@ -3,12 +3,14 @@
 import { useProgress } from './ProgressContext';
 
 const links = [
+  { id: 'pretest', label: 'Pre-Test' },
+  { id: 'intro', label: 'Introduction' },
   { id: 'lab', label: 'Source Lab' },
   { id: 'detective', label: 'Detective' },
   { id: 'clickbait', label: 'Clickbait' },
   { id: 'images', label: 'Images' },
   { id: 'scenarios', label: 'Scenarios' },
-  { id: 'quiz', label: 'Quiz' },
+  { id: 'quiz', label: 'Post-Test' },
   { id: 'final', label: 'Final Test' },
 ];
 
@@ -44,7 +46,7 @@ export default function Nav() {
         </div>
         <div className="flex items-center gap-2 bg-[var(--panel)] border border-[var(--panel-border)] px-3.5 py-1.5 rounded-full text-[13px]">
           <span className="w-[7px] h-[7px] rounded-full bg-[var(--good)]" style={{ boxShadow: '0 0 8px var(--good)' }} />
-          {doneCount}/6 modules
+          {doneCount}/7 modules
         </div>
       </div>
     </nav>

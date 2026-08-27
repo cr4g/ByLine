@@ -46,8 +46,8 @@ export default function Hero() {
         transition={{ duration: 0.6, delay: 0.25 }}
         className="text-[18px] text-[var(--muted)] max-w-[560px] leading-relaxed mb-9"
       >
-        Six hands-on labs train your eye for credible sources, manipulated photos, and viral Facebook
-        posts built to fool you — cases pulled from the way news and misinformation actually spread here.
+        A quick pre-test, a grounding in what fake news actually looks like, six hands-on labs, and a
+        post-test to prove the gain — cases pulled from the way news and misinformation actually spread here.
       </motion.p>
 
       <motion.div
@@ -60,7 +60,7 @@ export default function Hero() {
           whileHover={{ y: -2, boxShadow: '0 14px 30px -6px rgba(124,92,252,0.7)' }}
           whileTap={{ scale: 0.97 }}
           className="btn btn-primary"
-          onClick={() => scrollToId('lab')}
+          onClick={() => scrollToId('pretest')}
         >
           Start training →
         </motion.button>

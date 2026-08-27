@@ -5,6 +5,7 @@ import { createContext, useContext, useState, useCallback, useMemo } from 'react
 const ProgressContext = createContext(null);
 
 const initialModules = {
+  pretest: false,
   lab: false,
   detective: false,
   clickbait: false,
@@ -18,6 +19,7 @@ export function ProgressProvider({ children }) {
   const [totalCorrect, setTotalCorrect] = useState(0);
   const [totalAttempts, setTotalAttempts] = useState(0);
   const [quizScore, setQuizScore] = useState(null);
+  const [pretestScore, setPretestScoreState] = useState(null);
 
   const markDone = useCallback((key) => {
     setModules((prev) => (prev[key] ? prev : { ...prev, [key]: true }));
@@ -30,6 +32,10 @@ export function ProgressProvider({ children }) {
 
   const setFinalQuizScore = useCallback((score) => {
     setQuizScore(score);
+  }, []);
+
+  const setPretestScore = useCallback((score) => {
+    setPretestScoreState(score);
   }, []);
 
   const doneCount = useMemo(
@@ -48,6 +54,8 @@ export function ProgressProvider({ children }) {
     accuracy,
     quizScore,
     setFinalQuizScore,
+    pretestScore,
+    setPretestScore,
     doneCount,
   };
 

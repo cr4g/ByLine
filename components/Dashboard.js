@@ -9,7 +9,7 @@ import { useProgress } from './ProgressContext';
 ChartJS.register(ArcElement, Tooltip);
 
 export default function Dashboard() {
-  const { modules, accuracy, quizScore } = useProgress();
+  const { modules, accuracy, quizScore, pretestScore } = useProgress();
 
   const doughnutData = {
     labels: ['Accuracy', 'Remaining'],
@@ -67,8 +67,12 @@ export default function Dashboard() {
                 </div>
               </div>
               <div className="rounded-2xl bg-[rgba(255,255,255,0.03)] border border-[var(--panel-border)]" style={{ padding: '18px' }}>
-                <div className="font-display text-[30px] font-bold">{quizScore === null ? '—' : `${quizScore}/12`}</div>
-                <div className="text-[12.5px] text-[var(--muted)] mt-1">Quiz score</div>
+                <div className="font-display text-[30px] font-bold">
+                  {pretestScore === null ? '—' : `${pretestScore}/12`}
+                  <span className="text-[var(--muted)] text-base font-normal"> {'\u2192'} </span>
+                  {quizScore === null ? '—' : `${quizScore}/12`}
+                </div>
+                <div className="text-[12.5px] text-[var(--muted)] mt-1">Pre-Test → Post-Test score</div>
               </div>
             </div>
           </div>

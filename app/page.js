@@ -4,6 +4,8 @@ import { ProgressProvider } from '../components/ProgressContext';
 import BackgroundField from '../components/BackgroundField';
 import Nav from '../components/Nav';
 import Hero from '../components/Hero';
+import PreTest from '../components/PreTest';
+import Intro from '../components/Intro';
 import SourceLab from '../components/SourceLab';
 import FakeNewsDetective from '../components/FakeNewsDetective';
 import ClickbaitChallenge from '../components/ClickbaitChallenge';
@@ -20,6 +22,8 @@ export default function Home() {
       <BackgroundField />
       <Nav />
       <Hero />
+      <PreTest />
+      <Intro />
       <SourceLab />
       <FakeNewsDetective />
       <ClickbaitChallenge />

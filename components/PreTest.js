@@ -6,27 +6,25 @@ import { quizQs } from '../lib/data';
 import { SectionHeader, Reveal } from './Reveal';
 import { useProgress } from './ProgressContext';
 
-export default function Quiz() {
+export default function PreTest() {
   const [index, setIndex] = useState(0);
   const [pickedIdx, setPickedIdx] = useState(null);
   const [correctCount, setCorrectCount] = useState(0);
   const [finished, setFinished] = useState(false);
-  const { recordAttempt, markDone, setFinalQuizScore, pretestScore } = useProgress();
+  const { markDone, setPretestScore } = useProgress();
 
   const q = quizQs[index];
 
   function answer(i) {
     if (pickedIdx !== null) return;
     setPickedIdx(i);
-    const correct = i === q.correct;
-    if (correct) setCorrectCount((c) => c + 1);
-    recordAttempt(correct);
+    if (i === q.correct) setCorrectCount((c) => c + 1);
   }
 
   function next() {
     if (index + 1 >= quizQs.length) {
-      markDone('quiz');
-      setFinalQuizScore(correctCount);
+      markDone('pretest');
+      setPretestScore(correctCount);
       setFinished(true);
       return;
     }
@@ -34,46 +32,27 @@ export default function Quiz() {
     setPickedIdx(null);
   }
 
-  function retake() {
-    setIndex(0);
-    setPickedIdx(null);
-    setCorrectCount(0);
-    setFinished(false);
-  }
-
   const pct = Math.round((100 * correctCount) / quizQs.length);
 
   return (
-    <section id="quiz" className="wrap">
+    <section id="pretest" className="wrap">
       <SectionHeader
-        num="Post-Test"
-        title="Same twelve questions. Let's see the difference."
-        description="Instant feedback after every answer, with your accuracy tracked live — this is the same test you took before the modules, so you can measure what you've learned."
+        num="Before you start · Pre-Test"
+        title="Let's see what you already know."
+        description="Twelve quick questions, no explanations shown yet — this just sets your baseline. You'll take the same test again at the end so you can see how much you've learned."
       />
       <Reveal>
         <div className="panel p-[34px] max-w-[760px] mx-auto">
           {finished ? (
             <div className="text-center">
-              <span className={`stamp ${pct >= 70 ? 'real' : 'fake'}`}>
-                {pct >= 70 ? '✓ Passed' : 'Keep practicing'}
-              </span>
+              <span className="stamp real">✓ Baseline recorded</span>
               <h2 className="mt-[18px] mb-1.5 text-2xl">
                 {correctCount} / {quizQs.length} correct
               </h2>
-              <p className="text-[var(--muted)] mb-0">Accuracy: {pct}%</p>
-              {pretestScore !== null && (
-                <p className="text-[13.5px] text-[var(--muted)] mt-2">
-                  Pre-Test score was {pretestScore}/{quizQs.length} —{' '}
-                  {correctCount > pretestScore
-                    ? `up ${correctCount - pretestScore} points since then.`
-                    : correctCount === pretestScore
-                    ? 'same score as your Pre-Test.'
-                    : `down ${pretestScore - correctCount} points — worth reviewing the modules again.`}
-                </p>
-              )}
-              <button className="btn btn-ghost mt-5" onClick={retake}>
-                Retake quiz
-              </button>
+              <p className="text-[var(--muted)] mb-0">
+                Score: {pct}%. No worries if it's low — that's exactly what the modules below are for. Scroll on
+                to the Introduction to start building your media literacy skills.
+              </p>
             </div>
           ) : (
             <>
@@ -81,7 +60,7 @@ export default function Quiz() {
                 <span>
                   Question {index + 1} of {quizQs.length}
                 </span>
-                <span>{correctCount} correct so far</span>
+                <span>Pre-Test</span>
               </div>
               <div className="h-1.5 rounded-full bg-[rgba(255,255,255,0.08)] overflow-hidden mb-[30px]">
                 <motion.div
@@ -96,8 +75,12 @@ export default function Quiz() {
                 {q.opts.map((opt, i) => {
                   let style = {};
                   if (pickedIdx !== null) {
-                    if (i === q.correct) style = { background: 'var(--good-soft)', borderColor: 'var(--good)' };
-                    else if (i === pickedIdx) style = { background: 'var(--bad-soft)', borderColor: 'var(--bad)' };
+                    if (i === pickedIdx) {
+                      style =
+                        i === q.correct
+                          ? { background: 'var(--good-soft)', borderColor: 'var(--good)' }
+                          : { background: 'var(--bad-soft)', borderColor: 'var(--bad)' };
+                    }
                   }
                   return (
                     <button
@@ -119,7 +102,7 @@ export default function Quiz() {
                     animate={{ opacity: 1 }}
                     className="mt-[18px] p-4 rounded-xl bg-[rgba(255,255,255,0.04)] text-[13.5px] text-[var(--muted)] leading-relaxed"
                   >
-                    {q.explain}
+                    Noted — you'll get the full explanation once you reach the Post-Test.
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -131,7 +114,7 @@ export default function Quiz() {
                     className="btn btn-primary text-[13px] px-[22px] py-2.5"
                     onClick={next}
                   >
-                    {index === quizQs.length - 1 ? 'See results' : 'Next question'} →
+                    {index === quizQs.length - 1 ? 'See baseline' : 'Next question'} →
                   </motion.button>
                 )}
               </div>
