@@ -2,24 +2,25 @@
 
 import { useProgress } from './ProgressContext';
 
-const links = [
-  { id: 'pretest', label: 'Pre-Test' },
-  { id: 'intro', label: 'Introduction' },
-  { id: 'lab', label: 'Source Lab' },
-  { id: 'detective', label: 'Detective' },
-  { id: 'clickbait', label: 'Clickbait' },
-  { id: 'images', label: 'Images' },
-  { id: 'scenarios', label: 'Scenarios' },
-  { id: 'quiz', label: 'Post-Test' },
-  { id: 'final', label: 'Final Test' },
-];
-
-function scrollToId(id) {
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
 export default function Nav() {
-  const { doneCount } = useProgress();
+  const { doneCount, modules, showPostTest } = useProgress();
+
+  const learningLinks = [
+    { id: 'intro', label: 'Introduction' },
+    { id: 'lab', label: 'Source Lab' },
+    { id: 'detective', label: 'Detective' },
+    { id: 'clickbait', label: 'Clickbait' },
+    { id: 'images', label: 'Images' },
+    { id: 'scenarios', label: 'Scenarios' },
+  ];
+
+  const postTestLinks = [
+    { id: 'quiz', label: 'Post-Test' },
+  ];
+
+  function scrollToId(id) {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[rgba(10,13,23,0.55)] border-b border-[var(--panel-border)]">
@@ -34,19 +35,41 @@ export default function Nav() {
           BYLINE
         </div>
         <div className="hidden md:flex gap-6 text-sm text-[var(--muted)]">
-          {links.map((l) => (
-            <a
-              key={l.id}
-              onClick={() => scrollToId(l.id)}
-              className="cursor-pointer hover:text-[var(--text)] transition-colors"
-            >
-              {l.label}
+          {!modules.pretest && (
+            <a onClick={() => scrollToId('pretest')} className="cursor-pointer hover:text-[var(--text)] transition-colors">
+              Pre-Test
             </a>
-          ))}
+          )}
+          {modules.pretest && !showPostTest && (
+            <>
+              {learningLinks.map((l) => (
+                <a
+                  key={l.id}
+                  onClick={() => scrollToId(l.id)}
+                  className="cursor-pointer hover:text-[var(--text)] transition-colors"
+                >
+                  {l.label}
+                </a>
+              ))}
+            </>
+          )}
+          {showPostTest && (
+            <>
+              {postTestLinks.map((l) => (
+                <a
+                  key={l.id}
+                  onClick={() => scrollToId(l.id)}
+                  className="cursor-pointer hover:text-[var(--text)] transition-colors"
+                >
+                  {l.label}
+                </a>
+              ))}
+            </>
+          )}
         </div>
         <div className="flex items-center gap-2 bg-[var(--panel)] border border-[var(--panel-border)] px-3.5 py-1.5 rounded-full text-[13px]">
           <span className="w-[7px] h-[7px] rounded-full bg-[var(--good)]" style={{ boxShadow: '0 0 8px var(--good)' }} />
-          {doneCount}/7 modules
+          {showPostTest ? 'Post-Test' : doneCount}/7 modules
         </div>
       </div>
     </nav>

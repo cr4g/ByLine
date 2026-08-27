@@ -32,6 +32,11 @@ export default function PreTest() {
     setPickedIdx(null);
   }
 
+  if (finished && !modules.pretest) {
+    // Will be handled by SequentialGate
+    return null;
+  }
+
   const pct = Math.round((100 * correctCount) / quizQs.length);
 
   return (
@@ -53,6 +58,17 @@ export default function PreTest() {
                 Score: {pct}%. No worries if it's low — that's exactly what the modules below are for. Scroll on
                 to the Introduction to start building your media literacy skills.
               </p>
+              <div className="mt-8">
+                <button 
+                  className="btn btn-primary"
+                  onClick={() => {
+                    const intro = document.getElementById('intro');
+                    intro?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
+                  Start Learning ↓
+                </button>
+              </div>
             </div>
           ) : (
             <>

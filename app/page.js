@@ -12,7 +12,6 @@ import ClickbaitChallenge from '../components/ClickbaitChallenge';
 import ImageInvestigation from '../components/ImageInvestigation';
 import ScenarioSimulator from '../components/ScenarioSimulator';
 import Quiz from '../components/Quiz';
-import Dashboard from '../components/Dashboard';
 import FinalChallenge from '../components/FinalChallenge';
 import Footer from '../components/Footer';
 
@@ -21,17 +20,28 @@ export default function Home() {
     <ProgressProvider>
       <BackgroundField />
       <Nav />
+      
+      {/* Phase 1: Pre-Test */}
       <Hero />
       <PreTest />
-      <Intro />
-      <SourceLab />
-      <FakeNewsDetective />
-      <ClickbaitChallenge />
-      <ImageInvestigation />
-      <ScenarioSimulator />
-      <Quiz />
-      <Dashboard />
-      <FinalChallenge />
+      
+      {/* Phase 2: Learnings (only visible after pretest done) */}
+      <SequentialGate phase="learning">
+        <Intro />
+        <SourceLab />
+        <FakeNewsDetective />
+        <ClickbaitChallenge />
+        <ImageInvestigation />
+        <ScenarioSimulator />
+        <LearningsComplete />
+      </SequentialGate>
+      
+      {/* Phase 3: Post-Test */}
+      <SequentialGate phase="posttest">
+        <Quiz />
+        <FinalChallenge />
+      </SequentialGate>
+      
       <Footer />
     </ProgressProvider>
   );

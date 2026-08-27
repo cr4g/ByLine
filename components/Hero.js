@@ -1,12 +1,27 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useProgress } from './ProgressContext';
 
 function scrollToId(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 export default function Hero() {
+  const { modules, showPostTest } = useProgress();
+
+  const ctaText = !modules.pretest 
+    ? 'Start Pre-Test →'
+    : showPostTest 
+      ? 'Take Post-Test →'
+      : 'Continue Learning →';
+
+  const ctaTarget = !modules.pretest 
+    ? 'pretest'
+    : showPostTest 
+      ? 'quiz'
+      : 'intro';
+
   return (
     <section className="wrap pt-[190px] pb-[90px]">
       <motion.div
@@ -60,18 +75,20 @@ export default function Hero() {
           whileHover={{ y: -2, boxShadow: '0 14px 30px -6px rgba(124,92,252,0.7)' }}
           whileTap={{ scale: 0.97 }}
           className="btn btn-primary"
-          onClick={() => scrollToId('pretest')}
+          onClick={() => scrollToId(ctaTarget)}
         >
-          Start training →
+          {ctaText}
         </motion.button>
-        <motion.button
-          whileHover={{ background: 'rgba(255,255,255,0.08)' }}
-          whileTap={{ scale: 0.97 }}
-          className="btn btn-ghost"
-          onClick={() => scrollToId('dashboard')}
-        >
-          View dashboard
-        </motion.button>
+        {!modules.pretest && (
+          <motion.button
+            whileHover={{ background: 'rgba(255,255,255,0.08)' }}
+            whileTap={{ scale: 0.97 }}
+            className="btn btn-ghost"
+            onClick={() => scrollToId('pretest')}
+          >
+            View Pre-Test
+          </motion.button>
+        )}
       </motion.div>
 
       <motion.div

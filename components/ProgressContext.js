@@ -20,6 +20,7 @@ export function ProgressProvider({ children }) {
   const [totalAttempts, setTotalAttempts] = useState(0);
   const [quizScore, setQuizScore] = useState(null);
   const [pretestScore, setPretestScoreState] = useState(null);
+  const [showPostTest, setShowPostTest] = useState(false);
 
   const markDone = useCallback((key) => {
     setModules((prev) => (prev[key] ? prev : { ...prev, [key]: true }));
@@ -36,6 +37,11 @@ export function ProgressProvider({ children }) {
 
   const setPretestScore = useCallback((score) => {
     setPretestScoreState(score);
+  }, []);
+
+  const markLearningsComplete = useCallback(() => {
+    setShowPostTest(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
   const doneCount = useMemo(
@@ -57,6 +63,8 @@ export function ProgressProvider({ children }) {
     pretestScore,
     setPretestScore,
     doneCount,
+    showPostTest,
+    markLearningsComplete,
   };
 
   return (
