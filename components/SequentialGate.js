@@ -1,10 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { useProgress } from './ProgressContext';
 
 export default function SequentialGate({ phase, children }) {
-  const { modules, showLearnings, showPostTest, markLearningsComplete, doneCount } = useProgress();
+  const { modules, showPostTest } = useProgress();
   
   if (phase === 'learning') {
     if (!modules.pretest) return null;
