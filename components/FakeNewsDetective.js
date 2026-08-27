@@ -7,7 +7,7 @@ import { SectionHeader, Reveal } from './Reveal';
 import { useProgress } from './ProgressContext';
 
 function ArticleCard({ article, index, onAnswered }) {
-  const [picked, setPicked] = useState(null); // 'real' | 'fake'
+  const [picked, setPicked] = useState(null);
   const { recordAttempt } = useProgress();
 
   function judge(guessReal) {
@@ -20,11 +20,11 @@ function ArticleCard({ article, index, onAnswered }) {
 
   return (
     <Reveal delay={index * 0.04}>
-      <div className="panel p-6 flex flex-col gap-3.5">
+      <div className="panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
         <div className="font-mono-b text-xs text-[var(--muted)]">{article.source}</div>
-        <h4 className="m-0 text-[19px] leading-snug">{article.headline}</h4>
-        <div className="text-sm text-[var(--muted)] leading-relaxed">{article.body}</div>
-        <div className="flex gap-2.5">
+        <h4 style={{ margin: '0', fontSize: '19px', lineHeight: 1.4 }}>{article.headline}</h4>
+        <div style={{ fontSize: '14px', color: 'var(--muted)', lineHeight: 1.6 }}>{article.body}</div>
+        <div style={{ display: 'flex', gap: '10px' }}>
           <button
             className={`chip-btn ${picked === 'real' && article.real ? 'picked-good' : ''} ${picked === 'real' && !article.real ? 'picked-bad' : ''}`}
             disabled={!!picked}
@@ -45,8 +45,14 @@ function ArticleCard({ article, index, onAnswered }) {
             <motion.div
               initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
-              className="rounded-xl p-3.5 text-[13.5px] leading-relaxed"
-              style={{ background: 'rgba(245,185,66,0.1)', border: '1px solid rgba(245,185,66,0.4)' }}
+              className="rounded-xl"
+              style={{
+                padding: '14px',
+                fontSize: '13.5px',
+                lineHeight: 1.6,
+                background: 'rgba(245,185,66,0.1)',
+                border: '1px solid rgba(245,185,66,0.4)',
+              }}
             >
               <b style={{ color: 'var(--amber)' }}>Clues:</b> {article.clues}
             </motion.div>
@@ -70,13 +76,13 @@ export default function FakeNewsDetective() {
   }
 
   return (
-    <section id="detective" className="wrap">
+    <section id="detective" className="wrap" style={{ paddingTop: '100px', paddingBottom: '100px' }}>
       <SectionHeader
-        num="Module 02 · Fake News Detective"
+        num="Fake News Detective"
         title="Real story, or fabricated?"
         description="Read each snippet and make the call before you look at the evidence."
       />
-      <div className="flex flex-col gap-4">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {articles.map((a, i) => (
           <ArticleCard key={a.headline} article={a} index={i} onAnswered={onAnswered} />
         ))}

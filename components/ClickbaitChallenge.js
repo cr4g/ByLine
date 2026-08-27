@@ -64,7 +64,7 @@ export default function ClickbaitChallenge() {
   return (
     <section id="clickbait" className="wrap">
       <SectionHeader
-        num="Module 03 · Clickbait Challenge"
+        num="Clickbait Challenge"
         title="Spot the bait."
         description="Flag the headlines written to manipulate a click rather than inform you."
       />

@@ -95,7 +95,7 @@ export default function ImageInvestigation() {
   return (
     <section id="images" className="wrap">
       <SectionHeader
-        num="Module 04 · Image Investigation"
+        num="Image Investigation"
         title="Drag to compare. Find the edit."
         description="Every 'original' has a manipulated twin. Slide to reveal the difference before reading the hint."
       />

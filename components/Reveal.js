@@ -18,10 +18,21 @@ export function Reveal({ children, className = '', delay = 0 }) {
 
 export function SectionHeader({ num, title, description }) {
   return (
-    <Reveal className="mb-[50px] max-w-[640px]">
-      <div className="sec-num">{num}</div>
-      <h2 className="font-display font-bold text-[clamp(28px,4vw,42px)] mb-3.5">{title}</h2>
-      <p className="text-[var(--muted)] text-[16px] leading-relaxed m-0">{description}</p>
-    </Reveal>
+    <div className="section-header" style={{ marginBottom: '50px', maxWidth: '640px' }}>
+      <div className="sec-num" style={{ marginBottom: '12px' }}>{num}</div>
+      <h2 style={{ 
+        fontFamily: "'Space Grotesk', sans-serif", 
+        fontWeight: 700, 
+        fontSize: 'clamp(26px, 4vw, 38px)', 
+        marginBottom: '12px',
+        marginTop: '0'
+      }}>{title}</h2>
+      <p style={{ 
+        color: 'var(--muted)', 
+        fontSize: '15px', 
+        lineHeight: 1.6, 
+        margin: '0' 
+      }}>{description}</p>
+    </div>
   );
 }

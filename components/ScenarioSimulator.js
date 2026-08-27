@@ -36,7 +36,7 @@ export default function ScenarioSimulator() {
   return (
     <section id="scenarios" className="wrap">
       <SectionHeader
-        num="Module 05 · Scenario Simulator"
+        num="Scenario Simulator"
         title="Your Facebook feed. Your call."
         description="Realistic Filipino Facebook posts, real decisions: share, verify, or scroll past. Every choice has a consequence."
       />
