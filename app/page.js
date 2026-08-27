@@ -1,21 +1,21 @@
 'use client';
 
-import { ProgressProvider } from '../components/ProgressContext';
-import BackgroundField from '../components/BackgroundField';
-import Nav from '../components/Nav';
-import Hero from '../components/Hero';
-import PreTest from '../components/PreTest';
-import Intro from '../components/Intro';
-import SourceLab from '../components/SourceLab';
-import FakeNewsDetective from '../components/FakeNewsDetective';
-import ClickbaitChallenge from '../components/ClickbaitChallenge';
-import ImageInvestigation from '../components/ImageInvestigation';
-import ScenarioSimulator from '../components/ScenarioSimulator';
-import Quiz from '../components/Quiz';
-import FinalChallenge from '../components/FinalChallenge';
-import Footer from '../components/Footer';
-import SequentialGate from '../components/SequentialGate';
-import LearningsComplete from '../components/LearningsComplete';
+import { ProgressProvider } from './ProgressContext';
+import BackgroundField from './BackgroundField';
+import Nav from './Nav';
+import Hero from './Hero';
+import PreTest from './PreTest';
+import Intro from './Intro';
+import SourceLab from './SourceLab';
+import FakeNewsDetective from './FakeNewsDetective';
+import ClickbaitChallenge from './ClickbaitChallenge';
+import ImageInvestigation from './ImageInvestigation';
+import ScenarioSimulator from './ScenarioSimulator';
+import Quiz from './Quiz';
+import FinalChallenge from './FinalChallenge';
+import Footer from './Footer';
+import SequentialGate from './SequentialGate';
+import LearningsComplete from './LearningsComplete';
 
 export default function Home() {
   return (
