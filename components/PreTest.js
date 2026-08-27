@@ -11,7 +11,7 @@ export default function PreTest() {
   const [pickedIdx, setPickedIdx] = useState(null);
   const [correctCount, setCorrectCount] = useState(0);
   const [finished, setFinished] = useState(false);
-  const { markDone, setPretestScore } = useProgress();
+  const { markDone, setPretestScore, modules } = useProgress();  // ← ADD modules here
 
   const q = quizQs[index];
 
