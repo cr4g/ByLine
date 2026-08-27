@@ -1,24 +1,36 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { quizQs } from '../lib/data';
 import { SectionHeader, Reveal } from './Reveal';
 import { useProgress } from './ProgressContext';
+import { shuffleArray } from '../lib/shuffle';
 
 export default function PreTest() {
   const [index, setIndex] = useState(0);
   const [pickedIdx, setPickedIdx] = useState(null);
   const [correctCount, setCorrectCount] = useState(0);
   const [finished, setFinished] = useState(false);
-  const { markDone, setPretestScore, modules } = useProgress();  // ← ADD modules here
+  const { markDone, setPretestScore } = useProgress();
 
   const q = quizQs[index];
+
+  // Shuffle options once per question
+  const shuffledOptions = useMemo(() => {
+    if (!q) return [];
+    return shuffleArray(q.opts.map((opt, i) => ({ text: opt, originalIdx: i })));
+  }, [index]);
 
   function answer(i) {
     if (pickedIdx !== null) return;
     setPickedIdx(i);
-    if (i === q.correct) setCorrectCount((c) => c + 1);
+    
+    // Check if the picked option is the correct one
+    const selectedOpt = shuffledOptions[i];
+    if (selectedOpt.originalIdx === q.correct) {
+      setCorrectCount((c) => c + 1);
+    }
   }
 
   function next() {
@@ -30,11 +42,6 @@ export default function PreTest() {
     }
     setIndex((i) => i + 1);
     setPickedIdx(null);
-  }
-
-  if (finished && !modules.pretest) {
-    // Will be handled by SequentialGate
-    return null;
   }
 
   const pct = Math.round((100 * correctCount) / quizQs.length);
@@ -55,7 +62,7 @@ export default function PreTest() {
                 {correctCount} / {quizQs.length} correct
               </h2>
               <p className="text-[var(--muted)] mb-0">
-                Score: {pct}%. No worries if it's low — that's exactly what the modules below are for. Scroll on
+                Score: {pct}%. No worries if it's low — that's exactly what the lessons below are for. Scroll on
                 to the Introduction to start building your media literacy skills.
               </p>
               <div className="mt-8">
@@ -88,25 +95,24 @@ export default function PreTest() {
               </div>
               <div className="text-xl font-semibold mb-6 leading-snug">{q.q}</div>
               <div className="flex flex-col gap-3">
-                {q.opts.map((opt, i) => {
+                {shuffledOptions.map((opt, i) => {
                   let style = {};
                   if (pickedIdx !== null) {
                     if (i === pickedIdx) {
-                      style =
-                        i === q.correct
-                          ? { background: 'var(--good-soft)', borderColor: 'var(--good)' }
-                          : { background: 'var(--bad-soft)', borderColor: 'var(--bad)' };
+                      style = opt.originalIdx === q.correct
+                        ? { background: 'var(--good-soft)', borderColor: 'var(--good)' }
+                        : { background: 'var(--bad-soft)', borderColor: 'var(--bad)' };
                     }
                   }
                   return (
                     <button
-                      key={opt}
+                      key={i}
                       className="text-left px-[18px] py-[15px] rounded-xl border border-[var(--panel-border)] bg-[rgba(255,255,255,0.03)] text-[var(--text)] text-[14.5px] disabled:cursor-default"
                       style={style}
                       onClick={() => answer(i)}
                       disabled={pickedIdx !== null}
                     >
-                      {opt}
+                      {opt.text}
                     </button>
                   );
                 })}

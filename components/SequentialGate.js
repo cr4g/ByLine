@@ -3,7 +3,7 @@
 import { useProgress } from './ProgressContext';
 
 export default function SequentialGate({ phase, children }) {
-  const { modules, showPostTest } = useProgress();
+  const { modules, showPostTest, postTestDone } = useProgress();
   
   if (phase === 'learning') {
     if (!modules.pretest) return null;
@@ -13,6 +13,7 @@ export default function SequentialGate({ phase, children }) {
   
   if (phase === 'posttest') {
     if (!showPostTest) return null;
+    if (postTestDone) return null;
     return <>{children}</>;
   }
   

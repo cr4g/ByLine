@@ -53,7 +53,7 @@ export default function LearningsComplete() {
           className="btn btn-primary text-[16px] px-[36px] py-[16px]"
           onClick={markLearningsComplete}
         >
-          Proceed to Post-Test →
+          Ready for Post-Test →
         </motion.button>
       </motion.div>
     </section>

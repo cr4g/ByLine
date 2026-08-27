@@ -147,6 +147,7 @@ export default function FinalChallenge() {
   else rank = 'Intern Reporter';
 
   const item = finalItems[index];
+  const passed = score >= 6; // Passing threshold
 
   return (
     <section id="final" className="wrap">
@@ -206,9 +207,11 @@ export default function FinalChallenge() {
                 ? "Sharp eye — you're reading past the surface of a story."
                 : 'Review the modules above and try again — pattern recognition builds with repetition.'}
             </p>
-            <button className="btn btn-primary" onClick={start}>
-              Try again
-            </button>
+            {!passed && (
+              <button className="btn btn-primary" onClick={start}>
+                Try again
+              </button>
+            )}
           </div>
         </Reveal>
       )}

@@ -1,24 +1,35 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { quizQs } from '../lib/data';
 import { SectionHeader, Reveal } from './Reveal';
 import { useProgress } from './ProgressContext';
+import { shuffleArray } from '../lib/shuffle';
 
 export default function Quiz() {
   const [index, setIndex] = useState(0);
   const [pickedIdx, setPickedIdx] = useState(null);
   const [correctCount, setCorrectCount] = useState(0);
   const [finished, setFinished] = useState(false);
-  const { recordAttempt, markDone, setFinalQuizScore, pretestScore } = useProgress();
+  const { recordAttempt, markDone, setFinalQuizScore, pretestScore, postTestDone } = useProgress();
 
   const q = quizQs[index];
+
+  // Shuffle options once per question
+  const shuffledOptions = useMemo(() => {
+    if (!q) return [];
+    return shuffleArray(q.opts.map((opt, i) => ({ text: opt, originalIdx: i })));
+  }, [index]);
 
   function answer(i) {
     if (pickedIdx !== null) return;
     setPickedIdx(i);
-    const correct = i === q.correct;
+    
+    // Check if the picked option is the correct one
+    const selectedOpt = shuffledOptions[i];
+    const correct = selectedOpt.originalIdx === q.correct;
+    
     if (correct) setCorrectCount((c) => c + 1);
     recordAttempt(correct);
   }
@@ -41,6 +52,8 @@ export default function Quiz() {
     setFinished(false);
   }
 
+  if (postTestDone) return null;
+
   const pct = Math.round((100 * correctCount) / quizQs.length);
 
   return (
@@ -48,7 +61,7 @@ export default function Quiz() {
       <SectionHeader
         num="Post-Test"
         title="Same twelve questions. Let's see the difference."
-        description="Instant feedback after every answer, with your accuracy tracked live — this is the same test you took before the modules, so you can measure what you've learned."
+        description="Instant feedback after every answer, with your accuracy tracked live — this is the same test you took before the lessons, so you can measure what you've learned."
       />
       <Reveal>
         <div className="panel p-[34px] max-w-[760px] mx-auto">
@@ -68,12 +81,14 @@ export default function Quiz() {
                     ? `up ${correctCount - pretestScore} points since then.`
                     : correctCount === pretestScore
                     ? 'same score as your Pre-Test.'
-                    : `down ${pretestScore - correctCount} points — worth reviewing the modules again.`}
+                    : `down ${pretestScore - correctCount} points — worth reviewing the lessons again.`}
                 </p>
               )}
-              <button className="btn btn-ghost mt-5" onClick={retake}>
-                Retake quiz
-              </button>
+              {!postTestDone && (
+                <button className="btn btn-ghost mt-5" onClick={retake}>
+                  Retake quiz
+                </button>
+              )}
             </div>
           ) : (
             <>
@@ -93,21 +108,24 @@ export default function Quiz() {
               </div>
               <div className="text-xl font-semibold mb-6 leading-snug">{q.q}</div>
               <div className="flex flex-col gap-3">
-                {q.opts.map((opt, i) => {
+                {shuffledOptions.map((opt, i) => {
                   let style = {};
                   if (pickedIdx !== null) {
-                    if (i === q.correct) style = { background: 'var(--good-soft)', borderColor: 'var(--good)' };
-                    else if (i === pickedIdx) style = { background: 'var(--bad-soft)', borderColor: 'var(--bad)' };
+                    if (opt.originalIdx === q.correct) {
+                      style = { background: 'var(--good-soft)', borderColor: 'var(--good)' };
+                    } else if (i === pickedIdx) {
+                      style = { background: 'var(--bad-soft)', borderColor: 'var(--bad)' };
+                    }
                   }
                   return (
                     <button
-                      key={opt}
+                      key={i}
                       className="text-left px-[18px] py-[15px] rounded-xl border border-[var(--panel-border)] bg-[rgba(255,255,255,0.03)] text-[var(--text)] text-[14.5px] disabled:cursor-default"
                       style={style}
                       onClick={() => answer(i)}
                       disabled={pickedIdx !== null}
                     >
-                      {opt}
+                      {opt.text}
                     </button>
                   );
                 })}

@@ -21,6 +21,7 @@ export function ProgressProvider({ children }) {
   const [quizScore, setQuizScore] = useState(null);
   const [pretestScore, setPretestScoreState] = useState(null);
   const [showPostTest, setShowPostTest] = useState(false);
+  const [postTestDone, setPostTestDone] = useState(false);
 
   const markDone = useCallback((key) => {
     setModules((prev) => (prev[key] ? prev : { ...prev, [key]: true }));
@@ -33,6 +34,7 @@ export function ProgressProvider({ children }) {
 
   const setFinalQuizScore = useCallback((score) => {
     setQuizScore(score);
+    setPostTestDone(true);
   }, []);
 
   const setPretestScore = useCallback((score) => {
@@ -65,6 +67,7 @@ export function ProgressProvider({ children }) {
     doneCount,
     showPostTest,
     markLearningsComplete,
+    postTestDone,
   };
 
   return (
