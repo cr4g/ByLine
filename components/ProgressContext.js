@@ -42,9 +42,15 @@ export function ProgressProvider({ children }) {
   }, []);
 
   const markLearningsComplete = useCallback(() => {
-    setShowPostTest(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
+    // Only allow if all learning sections are done
+    const learningKeys = ['lab', 'detective', 'clickbait', 'images', 'scenarios'];
+    const allDone = learningKeys.every(key => modules[key]);
+    
+    if (allDone) {
+      setShowPostTest(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [modules]);
 
   const doneCount = useMemo(
     () => Object.values(modules).filter(Boolean).length,

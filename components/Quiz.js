@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { quizQs } from '../lib/data';
 import { SectionHeader, Reveal } from './Reveal';
@@ -12,14 +12,16 @@ export default function Quiz() {
   const [pickedIdx, setPickedIdx] = useState(null);
   const [correctCount, setCorrectCount] = useState(0);
   const [finished, setFinished] = useState(false);
+  const [shuffledOptions, setShuffledOptions] = useState([]);
   const { recordAttempt, markDone, setFinalQuizScore, pretestScore, postTestDone } = useProgress();
 
   const q = quizQs[index];
 
-  // Shuffle options once per question
-  const shuffledOptions = useMemo(() => {
-    if (!q) return [];
-    return shuffleArray(q.opts.map((opt, i) => ({ text: opt, originalIdx: i })));
+  // Shuffle options after mount and when question changes
+  useEffect(() => {
+    if (q) {
+      setShuffledOptions(shuffleArray(q.opts.map((opt, i) => ({ text: opt, originalIdx: i }))));
+    }
   }, [index]);
 
   function answer(i) {
@@ -28,10 +30,10 @@ export default function Quiz() {
     
     // Check if the picked option is the correct one
     const selectedOpt = shuffledOptions[i];
-    const correct = selectedOpt.originalIdx === q.correct;
-    
-    if (correct) setCorrectCount((c) => c + 1);
-    recordAttempt(correct);
+    if (selectedOpt && selectedOpt.originalIdx === q.correct) {
+      setCorrectCount((c) => c + 1);
+    }
+    recordAttempt(selectedOpt && selectedOpt.originalIdx === q.correct);
   }
 
   function next() {

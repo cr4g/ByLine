@@ -14,6 +14,10 @@ export default function Nav() {
     { id: 'scenarios', label: 'Scenarios' },
   ];
 
+  // Check if all learning sections are complete
+  const learningKeys = ['lab', 'detective', 'clickbait', 'images', 'scenarios'];
+  const allLearningsDone = learningKeys.every(key => modules[key]);
+
   const postTestLinks = [
     { id: 'quiz', label: 'Post-Test' },
   ];
@@ -53,7 +57,7 @@ export default function Nav() {
               ))}
             </>
           )}
-          {showPostTest && (
+          {showPostTest && allLearningsDone && (
             <>
               {postTestLinks.map((l) => (
                 <a
@@ -69,7 +73,7 @@ export default function Nav() {
         </div>
         <div className="flex items-center gap-2 bg-[var(--panel)] border border-[var(--panel-border)] px-3.5 py-1.5 rounded-full text-[13px]">
           <span className="w-[7px] h-[7px] rounded-full bg-[var(--good)]" style={{ boxShadow: '0 0 8px var(--good)' }} />
-          {showPostTest ? 'Post-Test' : doneCount}/7 modules
+          {showPostTest ? 'Post-Test' : `${doneCount}/7 completed`}
         </div>
       </div>
     </nav>
