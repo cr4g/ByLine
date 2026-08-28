@@ -20,6 +20,7 @@ export function ProgressProvider({ children }) {
   const [totalAttempts, setTotalAttempts] = useState(0);
   const [quizScore, setQuizScore] = useState(null);
   const [pretestScore, setPretestScoreState] = useState(null);
+  const [finalScore, setFinalScore] = useState(null);
   const [showPostTest, setShowPostTest] = useState(false);
   const [postTestDone, setPostTestDone] = useState(false);
 
@@ -34,16 +35,23 @@ export function ProgressProvider({ children }) {
 
   const setFinalQuizScore = useCallback((score) => {
     setQuizScore(score);
-    setPostTestDone(true);
   }, []);
 
   const setPretestScore = useCallback((score) => {
     setPretestScoreState(score);
   }, []);
 
+  const setFinalChallengeScore = useCallback((score) => {
+    setFinalScore(score);
+  }, []);
+
   const markLearningsComplete = useCallback(() => {
-    // Simply allow post-test when learning pages are done
     setShowPostTest(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  const markAllComplete = useCallback(() => {
+    setPostTestDone(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
@@ -65,10 +73,13 @@ export function ProgressProvider({ children }) {
     setFinalQuizScore,
     pretestScore,
     setPretestScore,
+    finalScore,
+    setFinalChallengeScore,
     doneCount,
     showPostTest,
     markLearningsComplete,
     postTestDone,
+    markAllComplete,
   };
 
   return (

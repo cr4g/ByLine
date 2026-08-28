@@ -3,7 +3,7 @@
 import { useProgress } from './ProgressContext';
 
 export default function Nav() {
-  const { doneCount, modules, showPostTest } = useProgress();
+  const { modules, showPostTest, postTestDone, doneCount } = useProgress();
 
   function scrollToId(id) {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -33,16 +33,36 @@ export default function Nav() {
               Learn
             </a>
           )}
-          {showPostTest && (
-            <a onClick={() => scrollToId('quiz')}>
-              Post-Test
-            </a>
+          {showPostTest && !postTestDone && (
+            <>
+              <a onClick={() => scrollToId('lab')}>
+                Source Lab
+              </a>
+              <a onClick={() => scrollToId('detective')}>
+                Detective
+              </a>
+              <a onClick={() => scrollToId('clickbait')}>
+                Clickbait
+              </a>
+              <a onClick={() => scrollToId('images')}>
+                Images
+              </a>
+              <a onClick={() => scrollToId('scenarios')}>
+                Scenarios
+              </a>
+              <a onClick={() => scrollToId('quiz')}>
+                Post-Test
+              </a>
+            </>
+          )}
+          {postTestDone && (
+            <span>Completed</span>
           )}
         </div>
         
         <div className="nav-progress">
           <span className="w-[8px] h-[8px] rounded-full bg-[var(--good)]" style={{ boxShadow: '0 0 8px var(--good)' }} />
-          {showPostTest ? 'Post-Test' : `${doneCount}/7 completed`}
+          {postTestDone ? 'Completed' : showPostTest ? 'Post-Test' : `${doneCount}/7 completed`}
         </div>
       </div>
     </nav>

@@ -13,11 +13,10 @@ export default function Quiz() {
   const [correctCount, setCorrectCount] = useState(0);
   const [finished, setFinished] = useState(false);
   const [shuffledOptions, setShuffledOptions] = useState([]);
-  const { recordAttempt, markDone, setFinalQuizScore, pretestScore, postTestDone } = useProgress();
+  const { recordAttempt, markDone, setFinalQuizScore, pretestScore, quizScore } = useProgress();
 
   const q = quizQs[index];
 
-  // Shuffle options after mount and when question changes
   useEffect(() => {
     if (q) {
       setShuffledOptions(shuffleArray(q.opts.map((opt, i) => ({ text: opt, originalIdx: i }))));
@@ -28,12 +27,11 @@ export default function Quiz() {
     if (pickedIdx !== null) return;
     setPickedIdx(i);
     
-    // Check if the picked option is the correct one
     const selectedOpt = shuffledOptions[i];
-    if (selectedOpt && selectedOpt.originalIdx === q.correct) {
-      setCorrectCount((c) => c + 1);
-    }
-    recordAttempt(selectedOpt && selectedOpt.originalIdx === q.correct);
+    const correct = selectedOpt && selectedOpt.originalIdx === q.correct;
+    
+    if (correct) setCorrectCount((c) => c + 1);
+    recordAttempt(correct);
   }
 
   function next() {
@@ -54,9 +52,8 @@ export default function Quiz() {
     setFinished(false);
   }
 
-  if (postTestDone) return null;
-
   const pct = Math.round((100 * correctCount) / quizQs.length);
+  const hasPassed = quizScore !== null && Math.round((100 * quizScore) / quizQs.length) >= 70;
 
   return (
     <section id="quiz" className="wrap">
@@ -86,10 +83,15 @@ export default function Quiz() {
                     : `down ${pretestScore - correctCount} points — worth reviewing the lessons again.`}
                 </p>
               )}
-              {!postTestDone && (
-                <button className="btn btn-ghost mt-5" onClick={retake}>
-                  Retake quiz
+              {pct < 70 && (
+                <button className="btn btn-primary mt-5" onClick={retake}>
+                  Retake Quiz (Need 70%+ to pass)
                 </button>
+              )}
+              {pct >= 70 && (
+                <p style={{ color: 'var(--good)', fontSize: '14px', fontWeight: 600, marginTop: '20px' }}>
+                  ✓ You passed! You can proceed to the Final Challenge.
+                </p>
               )}
             </div>
           ) : (

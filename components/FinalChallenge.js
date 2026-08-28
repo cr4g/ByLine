@@ -85,15 +85,16 @@ export default function FinalChallenge() {
   const [ended, setEnded] = useState(false);
   const [confettiTrigger, setConfettiTrigger] = useState(0);
   const intervalRef = useRef(null);
-  const { recordAttempt } = useProgress();
+  const { recordAttempt, markAllComplete, setFinalChallengeScore } = useProgress();
 
   const endFinal = useCallback((finalScore) => {
     clearInterval(intervalRef.current);
     setEnded(true);
     const pct = Math.round((100 * finalScore) / finalItems.length);
     recordAttempt(true);
+    setFinalChallengeScore(finalScore);
     if (pct >= 70) setConfettiTrigger((n) => n + 1);
-  }, [recordAttempt]);
+  }, [recordAttempt, setFinalChallengeScore]);
 
   useEffect(() => {
     return () => clearInterval(intervalRef.current);
@@ -132,7 +133,6 @@ export default function FinalChallenge() {
     }
   }
 
-  // handle natural timeout ending (separate from answer-driven ending)
   useEffect(() => {
     if (started && timer === 0 && !ended) {
       endFinal(score);
@@ -147,7 +147,7 @@ export default function FinalChallenge() {
   else rank = 'Intern Reporter';
 
   const item = finalItems[index];
-  const passed = score >= 6; // Passing threshold
+  const passed = score >= 6; // 70% of 8 = 5.6, so 6 is passing
 
   return (
     <section id="final" className="wrap">
@@ -205,11 +205,11 @@ export default function FinalChallenge() {
               You correctly identified {pct}% of cases within the time limit.{' '}
               {pct >= 70
                 ? "Sharp eye — you're reading past the surface of a story."
-                : 'Review the modules above and try again — pattern recognition builds with repetition.'}
+                : 'You need to score at least 70% to pass. Review the strategies and try again.'}
             </p>
             {!passed && (
               <button className="btn btn-primary" onClick={start}>
-                Try again
+                Try again (Need 70%+ to pass)
               </button>
             )}
           </div>

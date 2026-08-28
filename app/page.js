@@ -13,6 +13,7 @@ import ImageInvestigation from '../components/ImageInvestigation';
 import ScenarioSimulator from '../components/ScenarioSimulator';
 import Quiz from '../components/Quiz';
 import FinalChallenge from '../components/FinalChallenge';
+import CompletionScreen from '../components/CompletionScreen';
 import Footer from '../components/Footer';
 import SequentialGate from '../components/SequentialGate';
 
@@ -22,9 +23,11 @@ export default function Home() {
       <BackgroundField />
       <Nav />
       
-      {/* Phase 1: Pre-Test */}
-      <Hero />
-      <PreTest />
+      {/* Phase 1: Pre-Test (only shown before pretest is done) */}
+      <SequentialGate phase="pretest">
+        <Hero />
+        <PreTest />
+      </SequentialGate>
       
       {/* Phase 2: Learnings (only visible after pretest done) */}
       <SequentialGate phase="learning">
@@ -40,6 +43,11 @@ export default function Home() {
         <ScenarioSimulator />
         <Quiz />
         <FinalChallenge />
+      </SequentialGate>
+      
+      {/* Phase 4: Completion Screen (shown after post-test is done) */}
+      <SequentialGate phase="complete">
+        <CompletionScreen />
       </SequentialGate>
       
       <Footer />
