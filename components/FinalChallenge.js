@@ -94,7 +94,12 @@ export default function FinalChallenge() {
     recordAttempt(true);
     setFinalChallengeScore(finalScore);
     if (pct >= 70) setConfettiTrigger((n) => n + 1);
-  }, [recordAttempt, setFinalChallengeScore]);
+    
+    // If passed (70%+), mark all complete to show completion screen
+    if (finalScore >= 6) {
+      markAllComplete();
+    }
+  }, [recordAttempt, setFinalChallengeScore, markAllComplete]);
 
   useEffect(() => {
     return () => clearInterval(intervalRef.current);
