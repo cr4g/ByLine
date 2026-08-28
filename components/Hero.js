@@ -61,8 +61,8 @@ export default function Hero() {
         transition={{ duration: 0.6, delay: 0.25 }}
         className="text-[18px] text-[var(--muted)] max-w-[560px] leading-relaxed hero-desc"
       >
-        Enhance your media literacy skills in just 30 minutes. Take a quick pre-test, 
-        learn to spot fake news, and prove your skills with a post-test.
+        A quick pre-test, a grounding in what fake news actually looks like, hands-on labs, and a
+        post-test to prove the gain — cases pulled from the way news and misinformation actually spread here.
       </motion.p>
 
       <motion.div

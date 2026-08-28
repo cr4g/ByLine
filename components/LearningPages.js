@@ -31,7 +31,7 @@ export default function LearningPages() {
 
           <div className="panel" style={{ padding: '30px' }}>
             <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '20px', fontWeight: 700, marginBottom: '16px', color: 'var(--cyan)' }}>
-            Common Types of Fake News
+              b. Common Types of Fake News
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               {fakeNewsTypes.map((t, i) => (
@@ -169,7 +169,7 @@ export default function LearningPages() {
       content: (
         <div className="panel" style={{ padding: '40px' }}>
           <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '22px', fontWeight: 700, marginBottom: '24px', color: 'var(--cyan)' }}>
-            Importance of Identifying Fake News
+            d. Importance of Identifying Fake News
           </h3>
           <div style={{ fontSize: '16px', lineHeight: 1.8, color: 'var(--text)' }}>
             <p style={{ marginBottom: '20px' }}>
@@ -201,46 +201,71 @@ export default function LearningPages() {
       title: 'Fact-Checking Strategies',
       subtitle: 'How to Distinguish Real and Fake News',
       content: (
-        <div className="panel" style={{ padding: '40px' }}>
-          <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '22px', fontWeight: 700, marginBottom: '24px', color: 'var(--cyan)' }}>
-            Fact Checking Strategies
-          </h3>
-          <p style={{ fontSize: '15px', color: 'var(--muted)', lineHeight: 1.7, marginBottom: '24px' }}>
-            In a digital landscape filled with misinformation, algorithms, and AI-generated content, learning how to critically evaluate information is a key social responsibility. Every time we share a story or use a source, we act as 'cultural producers'.
-          </p>
-          <p style={{ fontSize: '16px', lineHeight: 1.7, marginBottom: '30px', fontWeight: 500 }}>
-            Use this reference guide to master two professional evaluation toolkits: <strong style={{ color: 'var(--cyan)' }}>SIFT</strong> (for quick digital verification) and <strong style={{ color: 'var(--violet)' }}>ACT UP</strong> (for deep source critique).
-          </p>
-          
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
-            gap: '16px', 
-            marginTop: '20px'
-          }}>
+        <div>
+          <div className="panel" style={{ padding: '40px', marginBottom: '30px' }}>
+            <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '22px', fontWeight: 700, marginBottom: '24px', color: 'var(--cyan)' }}>
+              a. Fact Checking Strategies
+            </h3>
+            <p style={{ fontSize: '15px', color: 'var(--muted)', lineHeight: 1.7, marginBottom: '24px' }}>
+              In a digital landscape filled with misinformation, algorithms, and AI-generated content, learning how to critically evaluate information is a key social responsibility. Every time we share a story or use a source, we act as 'cultural producers'.
+            </p>
+            <p style={{ fontSize: '16px', lineHeight: 1.7, marginBottom: '30px', fontWeight: 500 }}>
+              Use this reference guide to master two professional evaluation toolkits: <strong style={{ color: 'var(--cyan)' }}>SIFT</strong> (for quick digital verification) and <strong style={{ color: 'var(--violet)' }}>ACT UP</strong> (for deep source critique).
+            </p>
+            
             <div style={{ 
-              padding: '20px', 
-              borderRadius: '12px', 
-              background: 'rgba(124,92,252,0.1)', 
-              border: '1px solid rgba(124,92,252,0.3)'
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+              gap: '16px', 
+              marginTop: '20px'
             }}>
-              <div style={{ fontSize: '28px', marginBottom: '10px' }}>⚡</div>
-              <h4 style={{ margin: '0 0 8px', fontSize: '16px', fontWeight: 700 }}>SIFT</h4>
-              <p style={{ margin: '0', fontSize: '13px', color: 'var(--muted)', lineHeight: 1.5 }}>
-                Quick digital verification for claims, articles, images, or quotes.
+              <div style={{ 
+                padding: '20px', 
+                borderRadius: '12px', 
+                background: 'rgba(124,92,252,0.1)', 
+                border: '1px solid rgba(124,92,252,0.3)'
+              }}>
+                <div style={{ fontSize: '28px', marginBottom: '10px' }}>⚡</div>
+                <h4 style={{ margin: '0 0 8px', fontSize: '16px', fontWeight: 700 }}>SIFT</h4>
+                <p style={{ margin: '0', fontSize: '13px', color: 'var(--muted)', lineHeight: 1.5 }}>
+                  Quick digital verification for claims, articles, images, or quotes.
+                </p>
+              </div>
+              <div style={{ 
+                padding: '20px', 
+                borderRadius: '12px', 
+                background: 'rgba(34,211,238,0.1)', 
+                border: '1px solid rgba(34,211,238,0.3)'
+              }}>
+                <div style={{ fontSize: '28px', marginBottom: '10px' }}>📚</div>
+                <h4 style={{ margin: '0 0 8px', fontSize: '16px', fontWeight: 700 }}>ACT UP</h4>
+                <p style={{ margin: '0', fontSize: '13px', color: 'var(--muted)', lineHeight: 1.5 }}>
+                  Deep source critique for scholarly and academic research.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Infographic below the strategies */}
+          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+            <div className="panel" style={{ padding: '30px', marginBottom: '24px', textAlign: 'center' }}>
+              <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '20px', fontWeight: 700, margin: '0', color: 'var(--text)' }}>
+                📊 Fact-Checking Strategies
+              </h3>
+              <p style={{ fontSize: '14px', color: 'var(--muted)', margin: '8px 0 0' }}>
+                Here are some effective fact-checking strategies you can use to evaluate online information and avoid falling for fake news.
               </p>
             </div>
-            <div style={{ 
-              padding: '20px', 
-              borderRadius: '12px', 
-              background: 'rgba(34,211,238,0.1)', 
-              border: '1px solid rgba(34,211,238,0.3)'
-            }}>
-              <div style={{ fontSize: '28px', marginBottom: '10px' }}>📚</div>
-              <h4 style={{ margin: '0 0 8px', fontSize: '16px', fontWeight: 700 }}>ACT UP</h4>
-              <p style={{ margin: '0', fontSize: '13px', color: 'var(--muted)', lineHeight: 1.5 }}>
-                Deep source critique for scholarly and academic research.
-              </p>
+            
+            <div style={{ position: 'relative', width: '100%', aspectRatio: '0.5', borderRadius: '18px', overflow: 'hidden' }}>
+              <Image
+                src="/images/fact-checking-strategies.jpg"
+                alt="Fact-Checking Strategies infographic"
+                fill
+                sizes="600px"
+                style={{ objectFit: 'contain' }}
+                priority
+              />
             </div>
           </div>
         </div>
@@ -418,34 +443,6 @@ export default function LearningPages() {
                 </div>
               </motion.div>
             ))}
-          </div>
-        </div>
-      )
-    },
-    {
-      id: 'infographic',
-      title: 'Fact-Checking Strategies',
-      subtitle: 'Visual Infographic',
-      content: (
-        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-          <div className="panel" style={{ padding: '30px', marginBottom: '24px', textAlign: 'center' }}>
-            <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '20px', fontWeight: 700, margin: '0', color: 'var(--text)' }}>
-              📊 Fact-Checking Strategies
-            </h3>
-            <p style={{ fontSize: '14px', color: 'var(--muted)', margin: '8px 0 0' }}>
-              Here are some effective fact-checking strategies you can use to evaluate online information and avoid falling for fake news.
-            </p>
-          </div>
-          
-          <div style={{ position: 'relative', width: '100%', aspectRatio: '0.5', borderRadius: '18px', overflow: 'hidden' }}>
-            <Image
-              src="/images/fact-checking-strategies.jpg"
-              alt="Fact-Checking Strategies infographic"
-              fill
-              sizes="600px"
-              style={{ objectFit: 'contain' }}
-              priority
-            />
           </div>
         </div>
       )
