@@ -5,18 +5,11 @@ import BackgroundField from '../components/BackgroundField';
 import Nav from '../components/Nav';
 import Hero from '../components/Hero';
 import PreTest from '../components/PreTest';
-import Intro from '../components/Intro';
-import FactCheckingStrategies from '../components/FactCheckingStrategies';
-import SourceLab from '../components/SourceLab';
-import FakeNewsDetective from '../components/FakeNewsDetective';
-import ClickbaitChallenge from '../components/ClickbaitChallenge';
-import ImageInvestigation from '../components/ImageInvestigation';
-import ScenarioSimulator from '../components/ScenarioSimulator';
+import LearningPages from '../components/LearningPages';
 import Quiz from '../components/Quiz';
 import FinalChallenge from '../components/FinalChallenge';
 import Footer from '../components/Footer';
 import SequentialGate from '../components/SequentialGate';
-import LearningsComplete from '../components/LearningsComplete';
 
 export default function Home() {
   return (
@@ -30,14 +23,7 @@ export default function Home() {
       
       {/* Phase 2: Learnings (only visible after pretest done) */}
       <SequentialGate phase="learning">
-        <Intro />
-        <FactCheckingStrategies />
-        <SourceLab />
-        <FakeNewsDetective />
-        <ClickbaitChallenge />
-        <ImageInvestigation />
-        <ScenarioSimulator />
-        <LearningsComplete />
+        <LearningPages />
       </SequentialGate>
       
       {/* Phase 3: Post-Test */}

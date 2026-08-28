@@ -5,22 +5,6 @@ import { useProgress } from './ProgressContext';
 export default function Nav() {
   const { doneCount, modules, showPostTest } = useProgress();
 
-  const learningLinks = [
-    { id: 'intro', label: 'Introduction' },
-    { id: 'lab', label: 'Source Lab' },
-    { id: 'detective', label: 'Detective' },
-    { id: 'clickbait', label: 'Clickbait' },
-    { id: 'images', label: 'Images' },
-    { id: 'scenarios', label: 'Scenarios' },
-  ];
-
-  const learningKeys = ['lab', 'detective', 'clickbait', 'images', 'scenarios'];
-  const allLearningsDone = learningKeys.every(key => modules[key]);
-
-  const postTestLinks = [
-    { id: 'quiz', label: 'Post-Test' },
-  ];
-
   function scrollToId(id) {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
@@ -45,22 +29,14 @@ export default function Nav() {
             </a>
           )}
           {modules.pretest && !showPostTest && (
-            <>
-              {learningLinks.map((l) => (
-                <a key={l.id} onClick={() => scrollToId(l.id)}>
-                  {l.label}
-                </a>
-              ))}
-            </>
+            <a onClick={() => scrollToId('learning')}>
+              Learn
+            </a>
           )}
-          {showPostTest && allLearningsDone && (
-            <>
-              {postTestLinks.map((l) => (
-                <a key={l.id} onClick={() => scrollToId(l.id)}>
-                  {l.label}
-                </a>
-              ))}
-            </>
+          {showPostTest && (
+            <a onClick={() => scrollToId('quiz')}>
+              Post-Test
+            </a>
           )}
         </div>
         
