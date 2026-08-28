@@ -79,16 +79,6 @@ export default function Hero() {
         >
           {ctaText}
         </motion.button>
-        {!modules.pretest && (
-          <motion.button
-            whileHover={{ background: 'rgba(255,255,255,0.08)' }}
-            whileTap={{ scale: 0.97 }}
-            className="btn btn-ghost"
-            onClick={() => scrollToId('pretest')}
-          >
-            View Pre-Test
-          </motion.button>
-        )}
       </motion.div>
 
       <motion.div

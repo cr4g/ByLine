@@ -6,6 +6,7 @@ import Nav from '../components/Nav';
 import Hero from '../components/Hero';
 import PreTest from '../components/PreTest';
 import Intro from '../components/Intro';
+import FactCheckingStrategies from '../components/FactCheckingStrategies';
 import SourceLab from '../components/SourceLab';
 import FakeNewsDetective from '../components/FakeNewsDetective';
 import ClickbaitChallenge from '../components/ClickbaitChallenge';
@@ -30,6 +31,7 @@ export default function Home() {
       {/* Phase 2: Learnings (only visible after pretest done) */}
       <SequentialGate phase="learning">
         <Intro />
+        <FactCheckingStrategies />
         <SourceLab />
         <FakeNewsDetective />
         <ClickbaitChallenge />
